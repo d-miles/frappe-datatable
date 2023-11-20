@@ -128,6 +128,20 @@ describe.only('DataManager instance', () => {
       expect(column1.align).to.equal('right');
     });
   });
+
+  describe('appendRows', () => {
+    const datamanager = getDataManagerInstance();
+    
+    it('should allow appending rows', () => {
+      expect(datamanager.getRowCount()).eq(3);
+      
+      expect(() => datamanager.appendRows([
+        ['David', 'david@example.com', 'Software Developer']
+      ])).to.not.throw();
+      
+      expect(datamanager.getRowCount()).eq(4);
+    });
+  });
 });
 
 function getDataManagerInstance(opts = {}) {

@@ -141,9 +141,13 @@ export default class DataManager {
         });
     }
 
-    prepareRows() {
+    prepareRows(rows) {
+        if (Array.isArray(rows)) {
+            this.data.push(...rows);
+        }
+        
         this.validateData(this.data);
-
+        
         this.rows = this.data.map((d, i) => {
             const index = this._getNextRowCount();
 
@@ -242,9 +246,8 @@ export default class DataManager {
     }
 
     appendRows(rows) {
-        this.validateData(rows);
-
-        this.rows.push(...this.prepareRows(rows));
+        this.prepareRows(rows);
+        this.prepareRowView();
     }
 
     sortRows(colIndex, sortOrder = 'none') {
